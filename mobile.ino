@@ -17,7 +17,7 @@ U8G2_SH1106_128X64_NONAME_1_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
 
 GPS_coords mobile_coords;
 GPS_coords base_coords;
-bool coms;
+bool comms;
 
 void setup() {
   Serial.begin(115200);
@@ -60,16 +60,17 @@ void loop() {
         u8g2.print(distanceToBase);
         u8g2.print(F(" m "));
         u8g2.print(TinyGPSPlus::cardinal(courseToBase));
-        u8g2.setCursor(5, 40);
-        if(coms){
-          u8g2.print(F("Coms up"));
+        u8g2.setCursor(0, 40);
+        if(comms){
+          u8g2.print(F("comms up"));
         }
         else{
-          u8g2.print(F("Coms down"));
+          u8g2.print(F("comms down"));
         }
         u8g2.setCursor(0, 60);
         u8g2.print(gps.speed.mps());
-        u8g2.print(F(" m/s"));
+        u8g2.print(F(" m/s "));
+        u8g2.print(TinyGPSPlus::cardinal(gps.course.deg()));
           } while ( u8g2.nextPage() );
     }
 
@@ -96,11 +97,11 @@ void loop() {
     if ( timeout ){
         Serial.println(F("Failed, response timed out."));
         digitalWrite(LED_BUILTIN, LOW);
-        coms = false;
+        comms = false;
     }else{
         radio.read( &base_coords, sizeof(GPS_coords));
         digitalWrite(LED_BUILTIN, HIGH);
-        coms = true;
+        comms = true;
         Serial.print(F("Got response "));
         Serial.print(base_coords.latitude, 6);
         Serial.print(", ");
