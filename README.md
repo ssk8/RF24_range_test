@@ -1,6 +1,6 @@
 # RF24 range test
 
-This is a set each has a radio and gps, one has an oLED screen.
+This is a set of micros each with an RF24 radio and a gps, one has an oLED screen.
 They talk back and forth to get an idea of the usefull range.
 I ran out of road before they stopped talking to each other.
 2300m is around 1.4 miles
